@@ -1,6 +1,6 @@
 ## canvas太阳系动画实现中的细节
 
-太阳系动画是MDN中Canvas的一个基础动画示例，可以从中。[MDN链接](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Basic_animations)
+太阳系动画是MDN中Canvas的一个基础动画示例，可以从中对canvas动画和其他基本使用方法进行大致的梳理。[MDN链接](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Basic_animations)
 
 示例实现的效果是这样：
 
