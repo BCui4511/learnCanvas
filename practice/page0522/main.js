@@ -1,4 +1,5 @@
 // 定义一些方便的方法
+console.log('js开始执行的时间点', Date.now());
 const addText = function (textString, element = document.body) {
     const textNode = document.createTextNode(textString);
     const textDiv = document.createElement('div');
@@ -63,8 +64,19 @@ function init() {
     earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
     window.requestAnimationFrame(draw);
 }
-
-function draw() {
+var countN = 0;
+function draw(t) {
+    var time = Date.now();
+    var performanceNow = performance.now();
+    if(countN===0) {
+        console.log('第一次执行回调函数的时间',time);
+        console.log('回调函数输入的timeStamp', t);
+        console.log('时间戳的计时零点', time-t);
+        console.log('页面加载的关键时间点', window.chrome.loadTimes());
+        console.log('performance.timing.navigationStart',performance.timing.navigationStart);
+        console.log('performance.now()',performanceNow);
+        countN++;
+    }
     ctx.globalCompositeOperation = 'destination-over';
     ctx.clearRect(0, 0, 300, 300); // 全部清掉
 
@@ -75,16 +87,19 @@ function draw() {
 
     // Earth
     var time = new Date();
-    var nowtime = Date.now() - 1558770827094;
+    // var nowtime = Date.now()-1558786795833;
     // ctx.rotate((2 * Math.PI) / 60000 * nowtime);
+    // var angle = ((2*Math.PI)/60000)*nowtime;
+    // console.log(angle);
+    // ctx.rotate(angle);
       ctx.rotate( ((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds() );
     ctx.translate(105, 0);
     ctx.fillRect(0, -12, 50, 24); // Shadow
     ctx.save();
-    // ctx.rotate(((2 * Math.PI) / 1) * time.getSeconds() + ((2 * Math.PI) / 1000) * time.getMilliseconds());
+    ctx.rotate(((2 * Math.PI) / 1) * time.getSeconds() + ((2 * Math.PI) / 1000) * time.getMilliseconds());
     ctx.drawImage(earth, -12, -12);
     // Moon
-    // ctx.restore();
+    ctx.restore();
     ctx.rotate(((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds());
     ctx.translate(0, 28.5);
     ctx.drawImage(moon, -3.5, -3.5);
@@ -101,4 +116,5 @@ function draw() {
 }
 let canvasNode4 = addCanvas('canvas4', 300, 300);
 const ctx = canvasNode4.getContext('2d');
+// setTimeout(init,10000);
 init();
